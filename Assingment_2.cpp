@@ -1,4 +1,3 @@
-
 /* Q- Implement Priority queue as abstract data type using multiple linked list for servicing paitent in a Hospital witth Priority as 1. Serious, 2. Medium and
 3. General */
 #include<bits/stdc++.h>
@@ -100,9 +99,10 @@ public:
       cout<<"EMPTY QUEUE\n";
       return;
     }
+    cout<<"PRIORITY\tNAME\n";
     while(dummy!=NULL)
     {
-      cout<<dummy->priority<<" "<<dummy->name<<"\n";
+      cout<<dummy->priority<<"\t \t"<<dummy->name<<"\n";
       dummy=dummy->next;
     }
     cout<<endl;
@@ -114,7 +114,8 @@ public:
 
 int main()
 {
-  Queue obj;
+  Queue *obj;
+  obj=new Queue;
   int t=1;
   string name;
   int priority;
@@ -133,7 +134,7 @@ int main()
           cin>>name;
           cout<<"ENTER PRIORITY: ";
           cin>>priority;
-          obj.enqueuee(name,priority);
+          obj->enqueuee(name,priority);
           cout<<"\nWANT TO CONTINUE ? (0 To exit) ";
           cin>>n;
         }
@@ -141,19 +142,19 @@ int main()
       }
       case 2:
       {
-        obj.popp();
+        obj->popp();
         break;
       }
       case 3:
       {
         cout<<"ENTER PRIORITY: ";
         cin>>priority;
-        obj.display_specific(priority);
+        obj->display_specific(priority);
         break;
       }
       case 4:
       {
-        obj.display();
+        obj->display();
         break;
       }
       case 5:
