@@ -2,7 +2,7 @@
 using namespace std;
 
 
-typedef struct node
+typedef struct node         // Structure for Node of Binary tree
 {
   int key;
   node *left,*right,*next;
@@ -14,9 +14,9 @@ typedef struct node
     next=NULL;
   }
 }node;
+//------------------------------CLASS BST----------------------
 
-
-class BST
+class BST                   //class Binary Search tree
 {
   node* root;
 public:
@@ -58,7 +58,7 @@ public:
   {
     search_bst(root,data);
   }
-  void search_bst(node *dummy, int data)
+  void search_bst(node *dummy, int data)              //Search Function of BST
   {
     if( root==NULL )
     {
@@ -77,14 +77,58 @@ public:
     }
     cout<<"\nNO SUCH ELEMENT FOUND \n";
   }
-  /*void delete_node(int data)
+  void delete_node(int data)
   {
-    delete(root,data);
+    if(root==NULL)
+    {
+      cout<<"\nNO TREE AVAILABLE\n";
+      return;
+    }
+    node *root1 =del(root,data);
+    if(root1==NULL) cout<<"\nNO SUCH ELEMENT FOUND \n";
+    else
+    {
+      root=root1;
+      cout<<"\nDELETED SUCCESSFULLY\n";
+    }
   }
-  void delete(node* dummy, int data)
+  node* successor(node* curr)   //Succesor node of Delete operation Function of BST
   {
-
-  }*/
+    curr=curr->right;
+    while( curr != NULL && curr->left != NULL )
+    {
+      curr=curr->left;
+    }
+    return curr;
+  }
+  node* del(node* dummy, int data)      //Delete Function of BST
+  {
+      if(dummy == NULL) return NULL;
+      if(dummy->key > data) dummy->left=del(dummy->left,data);
+      else if(dummy->key < data )dummy->right=del(dummy->right,data);
+      else        //if we find node to be deleted
+      {
+        if( dummy->left == NULL )
+        {
+          node*temp=dummy->right;
+          delete dummy;
+          return temp;
+        }
+        else if( dummy->right == NULL )
+        {
+          node* temp=dummy->left;
+          delete dummy;
+          return temp;
+        }
+        else
+        {
+          node*succ= successor(dummy);
+          dummy->key=succ->key;
+          dummy->right=del(dummy->right,succ->key);
+        }
+        return dummy;
+      }
+  }
   void display()
   {
     if(root==NULL)
@@ -94,7 +138,7 @@ public:
     }
     display_inorder(root);
   }
-  void display_inorder(node *dummy)
+  void display_inorder(node *dummy)     //Inodrder Dispaly BST (recursive)
   {
     if(dummy==NULL) return;
     display_inorder(dummy->left);
@@ -111,7 +155,7 @@ public:
     node *root1=mirror(root);
     display_inorder(root1);
   }
-  node* mirror(node * dummy)
+  node* mirror(node * dummy)           //mirror image of BST (REVERSE FUNCTION)
   {
     if(root==NULL)
     {
@@ -124,7 +168,7 @@ public:
     p->right=mirror(dummy->left);
     return p;
   }
-  void find_max()
+  void find_max()                 //Find maximum Function
   {
     if(root==NULL)
     {
@@ -138,7 +182,7 @@ public:
     }
     cout<<"\nTHE MAX IN BINARY TREE IS :"<<dummy->key<<endl;
   }
-  void find_min()
+  void find_min()         //Find Minimum Function of BST
   {
     if(root==NULL)
     {
@@ -152,7 +196,7 @@ public:
     }
     cout<<"\nTHE MINIMUM IN BINARY TREE IS :"<<dummy->key<<endl;
   }
-  void display_wise()
+  void display_wise()         //Level Order traversal (Using Queue STL)
   {
     if(root==NULL)
     {
@@ -173,6 +217,7 @@ public:
 
   }
 }obj;
+//---------------------------------MAIN FUNCTION----------------------------
 int main()
 {
   int choice=-1;
@@ -210,7 +255,7 @@ int main()
       {
         cout<<"\nENTER THE NUMBER YOU WANT TO DELETE :";
         cin>>m;
-        //obj.delete_node(m);
+        obj.delete_node(m);
         break;
       }
       case 4:
