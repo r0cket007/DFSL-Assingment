@@ -73,4 +73,5 @@ int main()
   cout<<"\nFROM WHERE YOU WANT TO FIND THE MINIMUM DISTANCE :";
   cin>>s;
   dijisktra(v,s,n+1);
+	return 0;
 }
